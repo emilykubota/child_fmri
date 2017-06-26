@@ -1,10 +1,10 @@
-function glm(data_dir)
+function child_fmri_glm(data_dir)
 
 % Open session
 cd(data_dir)
 vw = initHiddenInplane();
 
-
+vw = viewSet(vw, 'current dt', 'MotionComp');
 %% Prepare scans for GLM
 
 %numScans = viewGet(vw, 'numScans');
@@ -30,7 +30,7 @@ er_displayParfiles(vw);
 
 
 %% run the glm
-dt = 'Original';
+dt = 'MotionComp';
 newDtName = 'GLMs';
 
 % GLM parameters

@@ -1,4 +1,4 @@
-function initialize_vista(sub_num)
+function initialize_vista(sub_num, alignment)
 % This script was taken from Winawer lab wiki, and is being modified to use
 % with child fMRI data.
 
@@ -63,6 +63,11 @@ params.annotations = {'run01', 'run01'};
 % Specify some optional parameters
 params.vAnatomy     = anat_file;
 
-
 % Go!
 ok = mrInit(params);
+
+% Save alignment from making fake inplane for your vista session 
+vw = initHiddenInplane; mrGlobals; 
+mrSESSION.alignment = T;
+saveSession;
+
