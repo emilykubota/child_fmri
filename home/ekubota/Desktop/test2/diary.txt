@@ -1,0 +1,239 @@
+no fieldmapB0files were specified (VERIFY THAT THIS IS CORRECT).
+
+no fieldmapMAGfiles were specified (VERIFY THAT THIS IS CORRECT).
+
+no inplanefilenames were specified (VERIFY THAT THIS IS CORRECT).
+
+no epifilenames were specified (VERIFY THAT THIS IS CORRECT).
+
+***** Please verify that the above files are correct.  We will proceed in 60 seconds. *****
+
+***** memory usage: 0 MB, current time: 22-Jun-2017 13:37:54 (file: preprocessfmri_CNI.m, line: 48) *****
+loading inplane data...done (loading inplane data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 13:37:54 (file: preprocessfmri_CNI.m, line: 64) *****
+***** memory usage: 0 MB, current time: 22-Jun-2017 13:37:54 (file: preprocessfmri_CNI.m, line: 82) *****
+loading EPI data...done (loading EPI data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 13:37:54 (file: preprocessfmri_CNI.m, line: 133) *****
+loading fieldmap data...done (loading fieldmap data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 13:37:54 (file: preprocessfmri_CNI.m, line: 148) *****
+resampling fieldmap data if necessary...done (resampling fieldmap data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 13:37:54 (file: preprocessfmri_CNI.m, line: 168) *****
+Starting matlabpool using the 'local' profile ... connected to 6 workers.
+calling preprocessfmri...{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('preprocessfmri_CNI', '/home/ekubota/git/BrainTools/mritools/preprocessfmri_CNI.m', 184)" style="font-weight:bold">preprocessfmri_CNI</a> (<a href="matlab: opentoline('/home/ekubota/git/BrainTools/mritools/preprocessfmri_CNI.m',184,0)">line 184</a>)
+[epis,finalepisize,validvol,meanvol] = preprocessfmri(figuredir,inplanes,inplanesizes, ...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('EK_preprocessfMRI', '/home/ekubota/git/child_fmri/EK_preprocessfMRI.m', 120)" style="font-weight:bold">EK_preprocessfMRI</a> (<a href="matlab: opentoline('/home/ekubota/git/child_fmri/EK_preprocessfMRI.m',120,0)">line 120</a>)
+preprocessfmri_CNI;
+} 
+EK_preprocessfMRI
+
+fieldmapB0files =
+
+     []
+
+
+fieldmapMAGfiles =
+
+     []
+
+
+inplanefilenames =
+
+     []
+
+
+fieldmaptimes =
+
+     []
+
+
+fieldmapdeltate =
+
+     []
+
+
+fieldmapunwrap =
+
+     []
+
+
+fieldmapsmoothing =
+
+     []
+
+
+epifieldmapasst =
+
+     []
+
+no fieldmapB0files were specified (VERIFY THAT THIS IS CORRECT).
+
+no fieldmapMAGfiles were specified (VERIFY THAT THIS IS CORRECT).
+
+no inplanefilenames were specified (VERIFY THAT THIS IS CORRECT).
+
+no epifilenames were specified (VERIFY THAT THIS IS CORRECT).
+
+***** Please verify that the above files are correct.  We will proceed in 60 seconds. *****
+
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:08 (file: preprocessfmri_CNI.m, line: 48) *****
+loading inplane data...done (loading inplane data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:08 (file: preprocessfmri_CNI.m, line: 64) *****
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:08 (file: preprocessfmri_CNI.m, line: 82) *****
+loading EPI data...done (loading EPI data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:08 (file: preprocessfmri_CNI.m, line: 133) *****
+loading fieldmap data...done (loading fieldmap data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:08 (file: preprocessfmri_CNI.m, line: 148) *****
+resampling fieldmap data if necessary...done (resampling fieldmap data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:08 (file: preprocessfmri_CNI.m, line: 168) *****
+Starting matlabpool using the 'local' profile ... connected to 6 workers.
+calling preprocessfmri...{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('preprocessfmri_CNI', '/home/ekubota/git/BrainTools/mritools/preprocessfmri_CNI.m', 184)" style="font-weight:bold">preprocessfmri_CNI</a> (<a href="matlab: opentoline('/home/ekubota/git/BrainTools/mritools/preprocessfmri_CNI.m',184,0)">line 184</a>)
+[epis,finalepisize,validvol,meanvol] = preprocessfmri(figuredir,inplanes,inplanesizes, ...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('EK_preprocessfMRI', '/home/ekubota/git/child_fmri/EK_preprocessfMRI.m', 120)" style="font-weight:bold">EK_preprocessfMRI</a> (<a href="matlab: opentoline('/home/ekubota/git/child_fmri/EK_preprocessfMRI.m',120,0)">line 120</a>)
+preprocessfmri_CNI;
+} 
+EK_preprocessfMRI
+
+fieldmapB0files =
+
+     []
+
+
+fieldmapMAGfiles =
+
+     []
+
+
+inplanefilenames =
+
+     []
+
+
+fieldmaptimes =
+
+     []
+
+
+fieldmapdeltate =
+
+     []
+
+
+fieldmapunwrap =
+
+     []
+
+
+fieldmapsmoothing =
+
+     []
+
+
+epifieldmapasst =
+
+     []
+
+no fieldmapB0files were specified (VERIFY THAT THIS IS CORRECT).
+
+no fieldmapMAGfiles were specified (VERIFY THAT THIS IS CORRECT).
+
+no inplanefilenames were specified (VERIFY THAT THIS IS CORRECT).
+
+no epifilenames were specified (VERIFY THAT THIS IS CORRECT).
+
+***** Please verify that the above files are correct.  We will proceed in 60 seconds. *****
+
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:27 (file: preprocessfmri_CNI.m, line: 48) *****
+loading inplane data...done (loading inplane data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:27 (file: preprocessfmri_CNI.m, line: 64) *****
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:27 (file: preprocessfmri_CNI.m, line: 82) *****
+loading EPI data...done (loading EPI data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:27 (file: preprocessfmri_CNI.m, line: 133) *****
+loading fieldmap data...done (loading fieldmap data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:27 (file: preprocessfmri_CNI.m, line: 148) *****
+resampling fieldmap data if necessary...done (resampling fieldmap data).
+***** memory usage: 0 MB, current time: 22-Jun-2017 17:04:27 (file: preprocessfmri_CNI.m, line: 168) *****
+calling preprocessfmri...if system_dependent('IsDebugMode')==1, dbquit; end
+preprocessfmri_CNI
+{Undefined function or variable 'fieldmapB0files'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('preprocessfmri_CNI', '/home/ekubota/git/BrainTools/mritools/preprocessfmri_CNI.m', 13)" style="font-weight:bold">preprocessfmri_CNI</a> (<a href="matlab: opentoline('/home/ekubota/git/BrainTools/mritools/preprocessfmri_CNI.m',13,0)">line 13</a>)
+if isempty(fieldmapB0files)
+} 
+cd /home/ekubota/Desktop
+cd 146TF
+mrVista
+Initializing Inplane view
+Attaching menus
+Attaching popup menus
+Attaching sliders
+Could not find /home/ekubota/Desktop/146TF/Inplane/userPrefs.mat
+Done initializing Inplane view
+
+ans = 
+
+                  name: 'INPLANE{1}'
+              viewType: 'Inplane'
+                subdir: 'Inplane'
+           sessionCode: '146TF'
+               subject: []
+             refreshFn: 'refreshMontageView'
+                  anat: [1x1 struct]
+                    co: []
+                   amp: []
+                    ph: []
+                   map: []
+               mapName: ''
+              mapUnits: []
+           spatialGrad: []
+               tSeries: []
+           tSeriesScan: NaN
+          tSeriesSlice: 18
+                  ROIs: []
+           selectedROI: 0
+           curDataType: 1
+               curScan: 1
+                    ui: [1x1 struct]
+    inplaneOrientation: 'PRS'
+
+cd ..
+cd 133ML
+mrVista
+Initializing Inplane view
+Attaching menus
+Attaching popup menus
+Attaching sliders
+Could not find /home/ekubota/Desktop/133ML/Inplane/userPrefs.mat
+Done initializing Inplane view
+
+ans = 
+
+                  name: 'INPLANE{2}'
+              viewType: 'Inplane'
+                subdir: 'Inplane'
+           sessionCode: '133ML'
+               subject: []
+             refreshFn: 'refreshMontageView'
+                  anat: [1x1 struct]
+                    co: []
+                   amp: []
+                    ph: []
+                   map: []
+               mapName: ''
+              mapUnits: []
+           spatialGrad: []
+               tSeries: []
+           tSeriesScan: NaN
+          tSeriesSlice: 18
+                  ROIs: []
+           selectedROI: 0
+           curDataType: 1
+               curScan: 1
+                    ui: [1x1 struct]
+    inplaneOrientation: 'PRS'
+
