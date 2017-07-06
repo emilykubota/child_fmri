@@ -148,7 +148,7 @@ return
 %% Align t1 to mean functional
 f = im; % Mean functional
 if ~exist('t1FileName','file') || isempty(t1FileName)
-    t1FileName = matchfiles([datadir '/*VBM*/*.nii*'], 'tr');
+    t1FileName = matchfiles([datadir 't1_acpc.nii.gz'], 'tr');
     fprintf('\nT1 path %s\n',t1FileName{1})
 end
 t1 = readFileNifti(t1FileName{1});

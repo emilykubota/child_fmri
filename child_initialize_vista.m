@@ -1,18 +1,44 @@
-function initialize_vista(sub_num)
+function child_initialize_vista(sub_num, data_dir)
 % This script was taken from Winawer lab wiki, and is being modified to use
 % with child fMRI data.
 
 % Set session and anatomy paths
 %  Modify: sess_path, subj_id
 
-% %% To build a 3d surface (mesh) - will worry about this later EK
-% anat_dir = strcat('/mnt/scratch/', folder,'/',sub_num,'/MNINonLinear');
-% cd(anat_dir)
-% ribbonfile = strcat('/mnt/scratch/', folder, '/',sub_num,'/MNINonLinear/ribbon.nii.gz');
-% outfile = strcat('/mnt/scratch/', folder, '/',sub_num,'/MNINonLinear/t1_class.nii.gz');
-% alignTo = strcat('/mnt/scratch/', folder, '/',sub_num,'/MNINonLinear/T1w.nii.gz');
-% fillWithCSF = true; 
-% fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
+%% Step 4: Build t1_class file to build a 3d surface (mesh)
+anat_dir = strcat('/home/ekubota/Desktop/',sub_num);
+cd(anat_dir)
+ribbonfile = strcat('/home/ekubota/Desktop/', sub_num, '/ribbon.mgz');
+outfile = strcat('/home/ekubota/Desktop/', sub_num, '/t1_class.nii.gz');
+alignTo = strcat('/home/ekubota/Desktop/', sub_num, '/t1_acpc.nii.gz');
+fillWithCSF = true; 
+fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
+
+
+%% Since we don't have an inplane, we will use the mean functional as an inplane
+cd(data_dir)
+data=[];
+% parentdir = '/home/ekubota/Desktop/raw';
+% datadir = '/home/ekubota/Desktop/raw/'; 
+%functionals = dir('run01.nii.gz');
+
+% for ii = 1:length(functionals)
+%     im = readFileNifti(fullfile(data_dir,sprintf(functionals(ii).name,ii)));
+%     data = cat(4,data,im.data);
+%     movefile(fullfile(datadir,sprintf('run%02d.nii',ii)),fullfile(datadir,'RAW',sprintf('run%02d.nii',ii)));
+% end
+
+im = readFileNifti(fullfile(data_dir,'run01.nii.gz'));
+data = cat(4,data,im.data);
+
+datam = nanmean(data,4); %data(:,:,:,1);
+im.data = datam;
+im.pixdim = im.pixdim(1:3);
+im.dim = im.dim(1:3);
+im.ndim = 3;
+im.descrip = 'firstfMRI';
+im.fname = fullfile(data_dir,'Inplane.nii.gz');
+writeFileNifti(im)
 
 %% To initialize the vista session
 

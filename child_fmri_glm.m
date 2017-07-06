@@ -22,7 +22,8 @@ whichParfs = {parfs(1).name...
 cd(home)
 vw = er_assignParfilesToScans(vw, whichScans, whichParfs); % Assign parfiles to scans
 
-%vw = er_groupScans(vw, whichScans, [], dataType); % Group scans together
+dt = 'MotionComp';
+vw = er_groupScans(vw, whichScans, [], dt); % Group scans together
 
 
 % Check assigned parfiles and groups
@@ -30,7 +31,7 @@ er_displayParfiles(vw);
 
 
 %% run the glm
-dt = 'MotionComp';
+%dt = 'MotionComp';
 newDtName = 'GLMs';
 
 % GLM parameters
@@ -43,10 +44,10 @@ params.framePeriod = 2; %ek -changes detrend to quadratic
 % params.framePeriod = 1.5;
 
 
-%apply GLM for run 1
-vw = applyGlm(vw, dt, 1, params, newDtName);
+%apply GLM for grouped scans
+vw = applyGlm(vw, dt, whichScans, params, newDtName);
 
-%compute contrast map
+%compute VWFA contrast map
 
 stim     = er_concatParfiles(vw);
 active   = [1 2]; % words
@@ -57,16 +58,14 @@ vw       = computeContrastMap2(vw, active, control, saveName);
 
 updateGlobal(vw);
 
-%apply GLM & compute contrast map for run 2
-vw = applyGlm(vw, dt, 2, params, newDtName);
+%compute FFA contrast map
 
 stim     = er_concatParfiles(vw);
-active   = [1 2]; %words
-control  = [3 4 5 6]; %everything else
+active   = [3 4]; % faces
+control  = [1 2 5 6]; % everything else
 saveName = [];
 vw       = computeContrastMap2(vw, active, control, saveName);
 
+
 updateGlobal(vw);
-
-
 
