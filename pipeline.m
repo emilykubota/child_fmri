@@ -1,64 +1,57 @@
 %% This script will be a general pipeline for processing fMRI data 
-function pipeline(sub_num)
+function pipeline_version4(sub_num)
 
 data_dir = strcat('/home/ekubota/Desktop/',sub_num); 
 script_dir = '/home/ekubota/git/child_fmri';
 
-%% Step 1: Convert parrec files to Nifti 
+%% Step 1: Preprocess fMRI data using Winawer lab pipeline 
 
 cd(data_dir)
-system('parrec2nii -c -b *.PAR');
-%% Step 2: ACPC align T1W 
-cd(data_dir)
+eck_preprocessfmri(data_dir)
 
-% Get T1W filename 
-t1w = dir('*VBM*.nii.gz');
-t1w_name = t1w.name; 
-
-% Set T1path 
-T1path = strcat(data_dir, '/', t1w_name);
-
-% Call acpc align script. This will require user to set AC and PC, and will
-% output file named 't1_acpc.nii.gz'
-cd(script_dir)
-acpc_align(T1path, sub_num)
-
-%% Step 3: Flip scans into RAS orientation 
-
-cd(data_dir)
-% Convert T1W
-system('mri_convert --out_orientation RAS t1_acpc.nii.gz T1w.nii.gz'); 
-
+%% Step 2: Convert to nii.gz and RAS
 % Get functional filenames 
-EPIs = dir('*EPI*.nii.gz');
-EPI_names = {EPIs(1).name, EPIs(2).name};
+EPIs = dir('run0*.nii');
+
+% Check how many functionals there are 
+epiSize = size(EPIs);
+nFunctionals = epiSize(1);
+
+EPI_names = {};
+% Create array of functional names 
+for ii = 1:nFunctionals
+    EPI_names = [EPI_names EPIs(ii).name];
+end 
+
+fun_names = {};
+for ii = 1:nFunctionals 
+    fun_names = [fun_names strcat(EPIs(ii).name,'.gz')];
+end 
 
 %Convert functionals, and set TR to 2.
-fun_names = {'run01.nii.gz', 'run02.nii.gz'};
 convert_command = 'mri_convert --out_orientation RAS';
 
-for ii = 1:length(fun_names)
+for ii = 1:nFunctionals
     % Convert to RAS
-    convert = [convert_command ' ' EPI_names{ii} ' ' fun_names{ii}];
+    convert = [convert_command ' ' EPI_names{ii} ' ' EPI_names{ii}];
     system(convert);
     
     %Set TR to 2 
     h = readFileNifti(fun_names{ii}); 
-    h.pixdim(4) = 2; 
+    h.pixdim(4) = 2;
+    h.data = uint16(h.data);
     writeFileNifti(h); 
 end 
 
-%% Step 4: Motion correct functionals using mcFlirt 
 
+%% Step 3: Use mean functional as inplane & initialize mrVista session
+cd(script_dir)
+child_initialize_vista(sub_num,data_dir)
+
+%% Step 4: Align functionals and volume using rxAlign and knk tools (using steps from Winawer lab wiki)
 cd(data_dir)
-system('mcflirt -in ./run01.nii.gz -plots -report');
-system('mcflirt -in ./run02.nii.gz -plots -report');
+child_fmri_align
 
-%% Step 4: Create fake inplane 
+%% Step 6: Fit the GLM
 cd(script_dir)
-fake_inplane(data_dir) 
-
-%% Step 5: Initialize vistasoft session 
-cd(script_dir)
-initialize_vista(sub_num)
-child_fmri_glm(data_dir)
+child_fmri_glm(data_dir) %Fits GLM to grouped runs and computes contrast maps (VWFA, FFA)

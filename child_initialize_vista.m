@@ -28,7 +28,7 @@ data=[];
 %     movefile(fullfile(datadir,sprintf('run%02d.nii',ii)),fullfile(datadir,'RAW',sprintf('run%02d.nii',ii)));
 % end
 
-im = readFileNifti(fullfile(data_dir,'run01.nii.gz'));
+im = readFileNifti(fullfile(data_dir,'run01.nii'));
 data = cat(4,data,im.data);
 
 datam = nanmean(data,4); %data(:,:,:,1);
@@ -55,10 +55,10 @@ cd(sess_path)
 
 
 %Specify functionals
-epi_file{1} = fullfile('run01.nii.gz');
+epi_file{1} = fullfile('run01.nii');
 assert(exist(epi_file{1},'file')>0)
 
-epi_file{2} = fullfile('run02.nii.gz');
+epi_file{2} = fullfile('run02.nii');
 assert(exist(epi_file{2},'file')>0)
 
 % Specify INPLANE file

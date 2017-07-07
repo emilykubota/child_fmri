@@ -4,7 +4,7 @@ function child_fmri_glm(data_dir)
 cd(data_dir)
 vw = initHiddenInplane();
 
-vw = viewSet(vw, 'current dt', 'MotionComp');
+vw = viewSet(vw, 'current dt', 'Original');
 %% Prepare scans for GLM
 
 %numScans = viewGet(vw, 'numScans');
@@ -22,7 +22,7 @@ whichParfs = {parfs(1).name...
 cd(home)
 vw = er_assignParfilesToScans(vw, whichScans, whichParfs); % Assign parfiles to scans
 
-dt = 'MotionComp';
+dt = 'Original';
 vw = er_groupScans(vw, whichScans, [], dt); % Group scans together
 
 
