@@ -23,7 +23,7 @@ function eck_preprocessfmri(datadir)
 
 
 %% Standardize nifti files from CBI and Siemens scans
-datadir = '/home/ekubota/Desktop/test'; %SET DATA DIR
+%datadir = '/home/ekubota/Desktop/133ML2'; %SET DATA DIR
 
 %% Specify field map information and files
 

@@ -1,5 +1,7 @@
 %% Alignment using knk tools abd steps winawer lab wiki 
-function child_fmri_align
+function child_fmri_align(datadir)
+
+cd(datadir)
 
 % Open rxAlign and get crude alignment 
 rx = rxAlign;
@@ -11,13 +13,13 @@ rxAlignment(:,[1 2]) = rxAlignment(:,[2 1]);
 knk.TORIG = rxAlignment;
 knk.trORIG = matrixtotransformation(knk.TORIG,0,rx.volVoxelSize,size(rx.ref),size(rx.ref) .* rx.refVoxelSize);
 
-% Precondition the volumes 
+%Precondition the volumes 
 
 volpre = preconditionvolume(rx.vol,[],[],[99 1/3]);
 refpre = preconditionvolume(rx.ref);
 %close all
 
-% open knk alignment GUI
+%open knk alignment GUI
 alignvolumedata(volpre,rx.volVoxelSize,refpre,rx.refVoxelSize,knk.trORIG);
 
 %% 4b Define ellipse
@@ -52,7 +54,7 @@ mrSESSION.alignment = T;
 saveSession;
 
 
-t1match = extractslices(volpre,rx.volVoxelSize,refpre,rx.refVoxelSize,tr);
+%t1match = extractslices(volpre,rx.volVoxelSize,refpre,rx.refVoxelSize,tr);
  
 % inspect the results
 if ~exist('Images', 'dir'), mkdir('Images'); end

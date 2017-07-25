@@ -6,11 +6,11 @@ function child_initialize_vista(sub_num, data_dir)
 %  Modify: sess_path, subj_id
 
 %% Step 4: Build t1_class file to build a 3d surface (mesh)
-anat_dir = strcat('/home/ekubota/Desktop/',sub_num);
+anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat');
 cd(anat_dir)
-ribbonfile = strcat('/home/ekubota/Desktop/', sub_num, '/ribbon.mgz');
-outfile = strcat('/home/ekubota/Desktop/', sub_num, '/t1_class.nii.gz');
-alignTo = strcat('/home/ekubota/Desktop/', sub_num, '/t1_acpc.nii.gz');
+ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/mrVista_Anat/ribbon.mgz');
+outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_class.nii.gz');
+alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc_avg.nii.gz');
 fillWithCSF = true; 
 fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
 
@@ -37,19 +37,18 @@ im.pixdim = im.pixdim(1:3);
 im.dim = im.dim(1:3);
 im.ndim = 3;
 im.descrip = 'firstfMRI';
-im.fname = fullfile(data_dir,'Inplane.nii.gz');
+im.fname = fullfile(data_dir,'Inplane.nii');
 writeFileNifti(im)
 
 %% To initialize the vista session
 
 % Set session path
-sess_path = strcat('/home/ekubota/Desktop/',sub_num);
-cd(sess_path)
+cd(data_dir)
  
 % Created path to anatomy to identify T1W file (not the most elegant, but
 % functional for how the data is arranged)
 
-%anat_path = strcat('/home/ekubota/Desktop/', sub_num);
+anat_path = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat');
 
 % Set paths to scan files
 
@@ -62,12 +61,12 @@ epi_file{2} = fullfile('run02.nii');
 assert(exist(epi_file{2},'file')>0)
 
 % Specify INPLANE file
-inplane_file = fullfile('Inplane.nii.gz'); 
+inplane_file = fullfile('Inplane.nii'); 
 assert(exist(inplane_file, 'file')>0)
  
 % Specify 3DAnatomy file -EK need to change path
 %cd(anat_path)
-anat_file = fullfile('t1_acpc.nii.gz');
+anat_file = fullfile(anat_path,'t1_acpc_avg.nii.gz');
 assert(exist(anat_file, 'file')>0)
 
 %cd(sess_path)
@@ -79,7 +78,7 @@ params = mrInitDefaultParams;
 % And insert the required parameters: 
 params.inplane      = inplane_file; 
 params.functionals  = epi_file; 
-params.sessionDir   = sess_path;
+params.sessionDir   = data_dir;
 
 % Set optional parameters (specific to experiment)
 % Modify: params.subject, params.annotations (e.g. 'FacesHouses' 'Words' 'Bars' 'Bars' 'OnOff'), params.coParams.nCycles (for each scan, can be determined from par files)

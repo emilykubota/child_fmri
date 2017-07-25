@@ -31,7 +31,7 @@ er_displayParfiles(vw);
 
 
 %% run the glm
-%dt = 'MotionComp';
+dt = 'Original';
 newDtName = 'GLMs';
 
 % GLM parameters
@@ -46,6 +46,7 @@ params.framePeriod = 2; %ek -changes detrend to quadratic
 
 %apply GLM for grouped scans
 vw = applyGlm(vw, dt, whichScans, params, newDtName);
+updateGlobal(vw);
 
 %compute VWFA contrast map
 
