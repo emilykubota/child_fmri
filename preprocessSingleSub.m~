@@ -12,12 +12,11 @@ for ii = 1:length(visit_dates)
         if sizeA == 8
             visit_dir = strcat(sub_dir,'/',visit_dates{ii});
             fmriCheck = strcat(visit_dir,'/fmri/Stimuli/parfiles');
+            cd(fmriCheck)
+            fLocCheck = dir('*fLoc
+            % check for fmri folder 
             if exist(fmriCheck,'dir')
-                cd(fmriCheck)
-                fLocCheck = dir('*fLoc*.par'); % check for parfile indicating fLoc
-                if ~isempty(fLocCheck)
-                    pipeline(sub_num, visit_dates{ii})
-                end
+                pipeline(sub_num, visit_dates{ii})
             end 
         end 
 end 

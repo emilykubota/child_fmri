@@ -5,7 +5,7 @@ root_dir = '/mnt/diskArray/projects/LMB_Analysis';
 %sub_list = {'NLR_110_HH','NLR_145_AC','NLR_150_MG','NLR_160_EK','NLR_161_AK'...
 %    'NLR_162_EF','NLR_163_LF','NLR_164_SF','NLR_170_GM','NLR_174_HS'};
 
-sub_list = {'NLR_110_HH'};
+sub_list = {'NLR_G'};
 
     % For each subject (si = subject index)
 for si = 1:length(sub_list)
@@ -13,7 +13,7 @@ for si = 1:length(sub_list)
     visit_dir = strcat(root_dir,'/',sub_list{si});
     visit_dates = HCP_autoDir(visit_dir);
     % For each visit (vi = visit index)
-    for vi = 3:length(visit_dates)
+    for vi = 1:length(visit_dates)
         % Check to see if the vist date folder is actually a date
         a = visit_dates{vi};
         sizeA = size(a);
@@ -21,7 +21,7 @@ for si = 1:length(sub_list)
         if sizeA == 8
             raw_dir = strcat(root_dir, '/', sub_list{si}, '/',visit_dates{vi},'/raw');
             cd(raw_dir);
-            EPI_names = dir('*EPI_106VOL*.PAR'); % check the raw directory for 70V functionals 
+            EPI_names = dir('*EPI_70VOL*.PAR'); % check the raw directory for 70V functionals 
             nFunctionals = size(EPI_names);
             nFunctionals = nFunctionals(1);
             if ~isempty(EPI_names) %If there are functionals, make fmri directory and convert parrec files

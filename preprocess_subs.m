@@ -1,5 +1,6 @@
-sub_list = HCP_autoDir('/home/ekubota/Desktop/test');
+sub_list = {'NLR_161_AK',...
+   'NLR_162_EF','NLR_163_LF','NLR_164_SF','NLR_170_GM','NLR_174_HS',...
+   'NLR_102_RS','NLR_207_AH','NLR_208_LH','NLR_210_SB','NLR_211_LB'};
 for ii = 1:length(sub_list)
-    pipeline(sub_list{ii})
-%    clearvars -except sub_list
+    preprocessSingleSub(sub_list{ii})
 end 

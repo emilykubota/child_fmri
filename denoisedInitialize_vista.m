@@ -1,9 +1,18 @@
-function child_initialize_vista(sub_num, data_dir)
+function denoisedInitialize_vista(sub_num, date)
 % This script was taken from Winawer lab wiki, and is being modified to use
 % with child fMRI data.
 
 % Set session and anatomy paths
 %  Modify: sess_path, subj_id
+
+fmri_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/', date, '/fmri');
+data_dir = strcat(fmri_dir, '/GLMdenoise');
+
+
+%% copy parfiles over from main fmri directory 
+cd(data_dir)
+mkdir('Stimuli')
+copyfile(fullfile(fmri_dir,'Stimuli'),fullfile(data_dir,'Stimuli'))
 
 %% Step 4: Build t1_class file to build a 3d surface (mesh)
 anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat');
@@ -28,7 +37,7 @@ data=[];
 %     movefile(fullfile(datadir,sprintf('run%02d.nii',ii)),fullfile(datadir,'RAW',sprintf('run%02d.nii',ii)));
 % end
 
-im = readFileNifti(fullfile(data_dir,'run01.nii'));
+im = readFileNifti(fullfile(data_dir,'denoisedGLMrun01.nii'));
 data = cat(4,data,im.data);
 
 datam = nanmean(data,4); %data(:,:,:,1);
@@ -53,10 +62,10 @@ cd(data_dir)
 
 
 %Specify functionals
-epi_file{1} = fullfile('run01.nii');
+epi_file{1} = fullfile('denoisedGLMrun01.nii');
 assert(exist(epi_file{1},'file')>0)
 
-epi_file{2} = fullfile('run02.nii');
+epi_file{2} = fullfile('denoisedGLMrun02.nii');
 assert(exist(epi_file{2},'file')>0)
 
 % Specify INPLANE file
@@ -82,12 +91,10 @@ params.sessionDir   = data_dir;
 % Set optional parameters (specific to experiment)
 % Modify: params.subject, params.annotations (e.g. 'FacesHouses' 'Words' 'Bars' 'Bars' 'OnOff'), params.coParams.nCycles (for each scan, can be determined from par files)
 params.subject = sub_num;
-params.annotations = {'run01', 'run02'};
+params.annotations = {'denoisedrun01', 'denoisedrun02'};
 
 % Specify some optional parameters
 params.vAnatomy     = anat_file;
 
 % Go!
 ok = mrInit(params);
-
-
