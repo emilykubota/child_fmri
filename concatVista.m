@@ -2,6 +2,7 @@
 root_dir = '/mnt/diskArray/projects/LMB_Analysis';
 sub_list = HCP_autoDir(root_dir);
 
+sub_list = {'NLR_197_BK'};
 % Get list of subjects we have fmri data for
 fMRI_subs = [];
 for ii = 1:length(sub_list)
@@ -18,7 +19,7 @@ for ii = 1:length(sub_list)
         fMRI_subs = [fMRI_subs {sub_list{ii}}];
     end 
 end 
-
+fMRI_subs = {'NLR_GB267'};
 
 % For each subject (si = subject index)
 for si = 1:length(fMRI_subs)

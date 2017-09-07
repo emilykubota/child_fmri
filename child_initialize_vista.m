@@ -6,11 +6,11 @@ function child_initialize_vista(sub_num, data_dir)
 %  Modify: sess_path, subj_id
 
 %% Step 4: Build t1_class file to build a 3d surface (mesh)
-anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat');
+anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat');
 cd(anat_dir)
-ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/vistaAnat/ribbon.mgz');
-outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat/t1_class.nii.gz');
-alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat/t1_acpc_avg.nii.gz');
+ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/mrVista_Anat/ribbon.mgz');
+outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_class.nii.gz');
+alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc.nii.gz');
 fillWithCSF = true; 
 fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
 
@@ -65,7 +65,7 @@ assert(exist(inplane_file, 'file')>0)
  
 % Specify 3DAnatomy file -EK need to change path
 %cd(anat_path)
-anat_file = fullfile(anat_dir,'t1_acpc_avg.nii.gz');
+anat_file = fullfile(anat_dir,'t1_acpc.nii.gz');
 assert(exist(anat_file, 'file')>0)
 
 %cd(sess_path)

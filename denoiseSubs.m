@@ -11,7 +11,7 @@ for ii = 1:length(sub_list)
         fMRI_subs = [fMRI_subs {sub_list{ii}}];
     end 
 end 
-fMRI_subs={'NLR_110_HH'};
+fMRI_subs={'NLR_GB387'};
 
 % For each subject (si = subject index)
 for si = 1:length(fMRI_subs)
@@ -34,7 +34,7 @@ for si = 1:length(fMRI_subs)
                 cd(fmriDir)
                 if (exist(fullfile(sessDir,'fmri','GLMdenoise'),'dir') == 0) && (exist(fullfile(sessDir,'fmri','run02.nii'),'file') == 2)
                     ek_glmDenoise(fMRI_subs{si},visit_dates{vi})
-                    denoisedInitialize_vista(fMRI_subs{si},visit_dates{vi})
+                    %denoisedInitialize_vista(fMRI_subs{si},visit_dates{vi})
                 end 
             end 
         end 

@@ -14,7 +14,7 @@ sub_list = HCP_autoDir(root_dir);
 % fMRI_subs = {'NLR_110_HH','NLR_145_AC','NLR_150_MG','NLR_160_EK','NLR_161_AK',...
 %    'NLR_162_EF','NLR_163_LF','NLR_164_SF','NLR_170_GM','NLR_174_HS',...
 %    'NLR_102_RS','NLR_207_AH','NLR_208_LH','NLR_210_SB','NLR_211_LB'};
-fMRI_subs = {'NLR_211_LB'};
+fMRI_subs = {'NLR_151_RD'};
 
 for fi = 1:length(fMRI_subs)
     organizeIndividualAnatomy(fMRI_subs{fi})

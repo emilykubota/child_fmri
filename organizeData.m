@@ -5,7 +5,7 @@ root_dir = '/mnt/diskArray/projects/LMB_Analysis';
 %sub_list = {'NLR_110_HH','NLR_145_AC','NLR_150_MG','NLR_160_EK','NLR_161_AK'...
 %    'NLR_162_EF','NLR_163_LF','NLR_164_SF','NLR_170_GM','NLR_174_HS'};
 
-sub_list = {'NLR_110_HH'};
+sub_list = {'NLR_IB357'};
 
     % For each subject (si = subject index)
 for si = 1:length(sub_list)

@@ -15,11 +15,11 @@ mkdir('Stimuli')
 copyfile(fullfile(fmri_dir,'Stimuli'),fullfile(data_dir,'Stimuli'))
 
 %% Step 4: Build t1_class file to build a 3d surface (mesh)
-anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat');
+anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat');
 cd(anat_dir)
-ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/vistaAnat/ribbon.mgz');
-outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat/t1_class.nii.gz');
-alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/vistaAnat/t1_acpc_avg.nii.gz');
+ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/mrVista_Anat/ribbon.mgz');
+outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_class.nii.gz');
+alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc_avg.nii.gz');
 fillWithCSF = true; 
 fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
 
