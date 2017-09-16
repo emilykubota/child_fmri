@@ -10,7 +10,7 @@ anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Ana
 cd(anat_dir)
 ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/mrVista_Anat/ribbon.mgz');
 outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_class.nii.gz');
-alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc.nii.gz');
+alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc_avg.nii.gz');
 fillWithCSF = true; 
 fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
 
@@ -27,8 +27,11 @@ data=[];
 %     data = cat(4,data,im.data);
 %     movefile(fullfile(datadir,sprintf('run%02d.nii',ii)),fullfile(datadir,'RAW',sprintf('run%02d.nii',ii)));
 % end
+temp = dir('*.nii');
+nruns = size(temp);
+nruns = nruns(1);
 
-im = readFileNifti(fullfile(data_dir,'run01.nii'));
+im = readFileNifti(fullfile(data_dir,temp(1).name));
 data = cat(4,data,im.data);
 
 datam = nanmean(data,4); %data(:,:,:,1);
@@ -53,11 +56,13 @@ cd(data_dir)
 
 
 %Specify functionals
-epi_file{1} = fullfile('run01.nii');
-assert(exist(epi_file{1},'file')>0)
+for ii = 1:nruns
+    epi_file{ii} = fullfile(temp(ii).name);
+    assert(exist(epi_file{ii},'file')>0)
+end 
 
-epi_file{2} = fullfile('run02.nii');
-assert(exist(epi_file{2},'file')>0)
+% epi_file{2} = fullfile(temp(2).name);
+% assert(exist(epi_file{2},'file')>0)
 
 % Specify INPLANE file
 inplane_file = fullfile('Inplane.nii'); 
@@ -65,7 +70,7 @@ assert(exist(inplane_file, 'file')>0)
  
 % Specify 3DAnatomy file -EK need to change path
 %cd(anat_path)
-anat_file = fullfile(anat_dir,'t1_acpc.nii.gz');
+anat_file = fullfile(anat_dir,'t1_acpc_avg.nii.gz');
 assert(exist(anat_file, 'file')>0)
 
 %cd(sess_path)
@@ -79,15 +84,20 @@ params.inplane      = inplane_file;
 params.functionals  = epi_file; 
 params.sessionDir   = data_dir;
 
+hold = {};
+for n = 1:nruns 
+    hold = [hold, strcat('run0',int2str(n))];
+end 
+
 % Set optional parameters (specific to experiment)
 % Modify: params.subject, params.annotations (e.g. 'FacesHouses' 'Words' 'Bars' 'Bars' 'OnOff'), params.coParams.nCycles (for each scan, can be determined from par files)
 params.subject = sub_num;
-params.annotations = {'run01', 'run02'};
+params.annotations = hold;
 
 % Specify some optional parameters
 params.vAnatomy     = anat_file;
 
+
 % Go!
 ok = mrInit(params);
-
 

@@ -1,8 +1,7 @@
-function [results, denoiseddata] = ek_glmDenoise(sub_num,sess)%,date)
+function [results, denoiseddata,epis] = ek_glmDenoiseConcat(sub_num)
 
 
-%sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/',date,'/fmri');
-sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/concatVistaAligned/',sess);
+sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/denoisedConcatVista');
 cd(sessDir)
  
 % Open hidden inplane in order to define global variables
@@ -34,7 +33,7 @@ cd(sessDir)
 dataDir = fullfile(sessDir);
 epis = matchfiles(fullfile(dataDir, 'run*.nii'));
 
-nScans = 2;
+nScans = nParfiles;
 %Read in the data
 data = cell(1, nScans);
 for ii = 1:nScans

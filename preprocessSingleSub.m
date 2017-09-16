@@ -4,7 +4,7 @@ sub_dir = strcat(root_dir,sub_num);
 %get dates of folder 
 visit_dates = HCP_autoDir(sub_dir);
 
-for ii = 3:length(visit_dates)
+for ii = 4:length(visit_dates)
         % Check to see if the vist date folder is actually a date
         a = visit_dates{ii};
         sizeA = size(a);

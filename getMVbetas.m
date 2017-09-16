@@ -1,9 +1,9 @@
 
-sessPath = '/mnt/diskArray/projects/LMB_Analysis/NLR_KB218/concatVista';
+sessPath = '/mnt/diskArray/projects/LMB_Analysis/NLR_GB310/concatVista';
 cd(sessPath)
 %mrVista
 
-roiName = {'concatFFA'};
+roiName = {'LH_FFA_p2'};
 dt = [1];
 scan = [1 2 3 4 5 6 7 8];
 vw = initHiddenInplane(dt,scan,roiName);

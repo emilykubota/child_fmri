@@ -4,6 +4,9 @@
 
 function saveDenoisedasNifti(sessDir)
 cd(sessDir)
+dataDir = fullfile(sessDir);
+epis = matchfiles(fullfile(dataDir, 'run*.nii'));
+epiNames = dir('run*.nii');
 mkdir('GLMdenoise')
 denoiseDir = strcat(sessDir,'/GLMdenoise');
 origDir = sessDir;
@@ -21,10 +24,11 @@ cd(denoiseDir);
 %keeps original nifti params
 
 for ii = 1:length(denoiseddata)    
-    filename = fullfile(origDir, sprintf('run%02.0f.nii',ii));
+    filename = fullfile(epis{ii});
     ni = niftiRead(filename);
     
-    newfilename = fullfile(denoiseDir, sprintf('denoisedGLMrun%02.0f.nii',ii));
+    tempfilename = strcat('denoisedGLM',epiNames(ii).name);
+    newfilename = fullfile(denoiseDir, tempfilename);
     ni.fname = newfilename;
     ni.data  = denoiseddata{ii};
     niftiWrite(ni)
