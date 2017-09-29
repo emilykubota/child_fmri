@@ -1,21 +1,97 @@
-sublist = {'NLR_GB387','NLR_GB310','NLR_KB218','NLR_JB423','NLR_GB355','NLR_GB267','NLR_HB275','NLR_197_BK'};
+%  sublist = {'NLR_GB267','NLR_GB310','NLR_GB355','NLR_GB387',...
+%      'NLR_HB275','NLR_KB218','NLR_IB357','NLR_JB423','NLR_197_BK','NLR_JB420'};
 
-%% Step 1: Preprocess data all together 
-for ii = 1:length(sublist)
-    data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned');
-    eck_preprocessfmri(data_dir)
+sublist = {'NLR_KB396','NLR_JB486'};
 
 for ii = 1:length(sublist)
-    data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned');
-    fmri_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/denoisedConcatVista');
-    
-    %% copy parfiles over from main fmri directory 
-    cd(data_dir)
-    mkdir('Stimuli')
-    copyfile(fullfile(fmri_dir,'Stimuli'),fullfile(data_dir,'Stimuli'))
+    sub_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii});
+    cd(sub_dir)
+    mkdir concatVistaAligned
 end
-%% make directory for each session
+
+%% Copy raw niftis into concatinated directory 
+for si = 1:length(sublist)
+    sub_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{si});
+    % Get the visit dates 
+    visit_dates = HCP_autoDir(sub_dir);
+    % For each visit (vi = visit index)
+    for vi = 1:length(visit_dates)
+        % Check to see if the vist date folder is actually a date
+        a = visit_dates{vi};
+        sizeA = size(a);
+        sizeA = sizeA(2);
+        if sizeA == 8
+            sessDir = strcat(sub_dir,'/',visit_dates{vi});
+            cd(sessDir)
+            if (exist(fullfile(sessDir,'fmri'),'dir') == 7)
+                cd fmri
+                temp = dir('*106VOL*');
+                nruns = size(temp);
+                nruns = nruns(1);
+                    
+                % set paths for old and new data
+                dataDir = strcat(sessDir, '/fmri');
+                concatDir = strcat(sub_dir,'/concatVistaAligned');
+                    
+                % copy data into concatinated folder 
+                for ci = 1:nruns  
+                    copyfile(fullfile(dataDir,(temp(ci).name)),fullfile(concatDir))
+                end 
+                % copy parfiles over
+                 copyfile(fullfile(dataDir,'Stimuli'),fullfile(concatDir,'Stimuli'))
+            end
+       end
+   end 
+end  
+ 
+
+%% Preprocess data 
 for ii = 1:length(sublist)
+    % preprocess data all together 
+    data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned');
+    eck_preprocessfmri(data_dir) 
+end 
+
+
+%% Step 2: Convert functionals to RAS
+
+for ii = 1:length(sublist)
+    % preprocess data all together 
+    data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned');
+    cd(data_dir)
+    
+    % Get functional filenames 
+    EPIs = dir('run0*.nii');
+    
+    % Check how many functionals there are 
+    nruns = size(EPIs);
+    nruns = nruns(1);
+    
+    EPI_names = {};
+    % Create array of functional names 
+    for ii = 1:nruns
+        EPI_names = [EPI_names EPIs(ii).name];
+    end
+    
+    %convert functionals, and set TR to 2.
+    convert_command = 'mri_convert --out_orientation RAS';
+    
+    for ii = 1:nruns
+        % Convert to RAS
+        convert = [convert_command ' ' EPI_names{ii} ' ' EPI_names{ii}];
+        system(convert);
+        
+        %Set TR to 2 
+        h = readFileNifti(EPI_names{ii}); 
+        h.pixdim(4) = 2;
+        h.data = uint16(h.data);
+        writeFileNifti(h); 
+    end 
+end 
+
+
+for ii = 1:length(sublist)
+    % Step 2: make directory for each session
     data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned');
     cd(data_dir)
     mkdir('sess1')
@@ -47,8 +123,7 @@ for ii = 1:length(sublist)
     end 
 end 
 
-sessFolders = {'sess1','sess2','sess3','sess4'};
- 
+% copy nii over based on how many parfiles are in each session folder
 
 for ii = 1:length(sublist)
 count = 1;
@@ -100,7 +175,10 @@ end
 for ii = 1:length(sublist)
     data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned');
     cd(data_dir)
-    mkdir('concatVista')
+    mkdir 'concatVista'
+%     concatDir = strcat(data_dir,'/concatVista');
+%     cd(concatDir)
+%     mkdir 'Stimuli/parfiles'
     for vi = 1:length(sessFolders)
         denoised_dir = strcat(data_dir,'/',sessFolders{vi},'/GLMdenoise');
         if exist(denoised_dir,'dir') == 7
@@ -124,6 +202,6 @@ end
 %% intialize vista 
 for ii = 1:length(sublist)
     data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii},'/concatVistaAligned/concatVista');
-    child_initialize_vista(sublist{ii},data_dir)
+    initAndGLM(sublist{ii},data_dir)
 end 
 

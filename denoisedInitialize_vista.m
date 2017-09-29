@@ -19,7 +19,7 @@ anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Ana
 cd(anat_dir)
 ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/mrVista_Anat/ribbon.mgz');
 outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_class.nii.gz');
-alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc_avg.nii.gz');
+alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc.nii.gz');
 fillWithCSF = true; 
 fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
 
@@ -74,7 +74,7 @@ assert(exist(inplane_file, 'file')>0)
  
 % Specify 3DAnatomy file -EK need to change path
 %cd(anat_path)
-anat_file = fullfile(anat_dir,'t1_acpc_avg.nii.gz');
+anat_file = fullfile(anat_dir,'t1_acpc.nii.gz');
 assert(exist(anat_file, 'file')>0)
 
 %cd(sess_path)

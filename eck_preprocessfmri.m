@@ -23,7 +23,7 @@ function eck_preprocessfmri(datadir)
 
 
 %% Standardize nifti files from CBI and Siemens scans
-%datadir = '/home/ekubota/Desktop/133ML2'; %SET DATA DIR
+
 
 %% Specify field map information and files
 
@@ -39,7 +39,7 @@ epifilenames = matchfiles(fullfile(datadir, '*EPI*.nii*'));
 disp(epifilenames');
 
 
-epiTimeFactor = 1; % convert from ms to seconds b/c CBI tr is in ms and code assumes seconds
+epiTimeFactor = 1; %  convert from ms to seconds b/c CBI tr is in ms and code assumes seconds
 
 % what is the desired in-plane matrix size for the EPI data?
 % this is useful for downsampling your data (in order to save memory) 
@@ -110,7 +110,7 @@ fieldmaptimeinterp = [];
 %   the parameters will be reported to the command window so that you can
 %   simply supply those parameters if you run again (so as to avoid user interaction).
 % if {MN SD}, then these will be the parameters that determine the mask to be used.
-mcmask = {};
+mcmask = [];
 
 
 

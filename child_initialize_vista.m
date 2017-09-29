@@ -10,7 +10,13 @@ anat_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Ana
 cd(anat_dir)
 ribbonfile = strcat('/mnt/diskArray/projects/LMB_Analysis/', sub_num, '/mrVista_Anat/ribbon.mgz');
 outfile = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_class.nii.gz');
-alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc_avg.nii.gz');
+if exist(fullfile(anat_dir,'t1_acpc.nii.gz'),'file') == 2
+    alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc.nii.gz');
+    avg = 0;
+else 
+    alignTo = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num, '/mrVista_Anat/t1_acpc_avg.nii.gz');
+    avg = 1;
+end 
 fillWithCSF = true; 
 fs_ribbon2itk(ribbonfile, outfile, fillWithCSF, alignTo)
 
@@ -36,7 +42,7 @@ data = cat(4,data,im.data);
 
 datam = nanmean(data,4); %data(:,:,:,1);
 im.data = datam;
-im.pixdim = im.pixdim(1:3);
+im.pixdim = im.pixdim; %(1:3);
 im.dim = im.dim(1:3);
 im.ndim = 3;
 im.descrip = 'firstfMRI';
@@ -70,8 +76,13 @@ assert(exist(inplane_file, 'file')>0)
  
 % Specify 3DAnatomy file -EK need to change path
 %cd(anat_path)
-anat_file = fullfile(anat_dir,'t1_acpc_avg.nii.gz');
-assert(exist(anat_file, 'file')>0)
+if avg == 1
+    anat_file = fullfile(anat_dir,'t1_acpc_avg.nii.gz');
+    assert(exist(anat_file, 'file')>0)
+else 
+    anat_file = fullfile(anat_dir,'t1_acpc.nii.gz');
+    assert(exist(anat_file, 'file')>0)
+end 
 
 %cd(sess_path)
 

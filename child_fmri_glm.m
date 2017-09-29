@@ -8,16 +8,22 @@ vw = viewSet(vw, 'current dt', 'Original');
 %% Prepare scans for GLM
 
 %numScans = viewGet(vw, 'numScans');
-whichScans = 1:2;
+% whichScans = 1:2;
 
 % If you're processing your own experiment, you'll need to produce parfiles
 % More info @
 % http://white.stanford.edu/newIm/index.php/GLM#Create_.par_files_for_each_scan
 home = pwd;
 cd Stimuli/parfiles
-parfs = dir('*fLoc*.par');
-whichParfs = {parfs(1).name...
-   parfs(2).name};
+parfs = dir('*.par');
+
+nruns = size(parfs);
+nruns = nruns(1);
+whichScans = 1:nruns;
+whichParfs = [];
+for nn = 1:nruns 
+    whichParfs = [whichParfs {parfs(nn).name}];
+end 
 
 cd(home)
 vw = er_assignParfilesToScans(vw, whichScans, whichParfs); % Assign parfiles to scans
@@ -36,12 +42,9 @@ newDtName = 'GLMs';
 
 % GLM parameters
 params = er_defaultParams;
-params.detrend = 2;
-params.framePeriod = 2; %ek -changes detrend to quadratic
-% params.onsetDelta =  0;     % we deleted 4 frames = 6 seconds in pre-processing
-% params.glmHRF     =  3;     % spm difference of two gamma functions
-% params.eventsPerBlock = 8;  % 8 frames (12 seconds) per block
-% params.framePeriod = 1.5;
+params.detrend = 2; %changes detrend to quadtadic 
+params.framePeriod = 2; %sets TR to 2
+params.glmHRF     =  3;     % spm difference of two gamma functions
 
 
 %apply GLM for grouped scans
@@ -51,8 +54,8 @@ updateGlobal(vw);
 %compute VWFA contrast map
 
 stim     = er_concatParfiles(vw);
-active   = [1 2]; % words
-control  = [3 4 5 6]; % everything else
+active   = [1 2 3 4]; % words
+control  = [5 6 7 8]; % everything else
 saveName = [];
 vw       = computeContrastMap2(vw, active, control, saveName);
 
@@ -62,8 +65,8 @@ updateGlobal(vw);
 %compute FFA contrast map
 
 stim     = er_concatParfiles(vw);
-active   = [3 4]; % faces
-control  = [1 2 5 6]; % everything else
+active   = [5 6]; % faces
+control  = [1 2 3 4 7 8]; % everything else
 saveName = [];
 vw       = computeContrastMap2(vw, active, control, saveName);
 

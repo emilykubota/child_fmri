@@ -1,8 +1,8 @@
-function [results, denoiseddata] = ek_glmDenoise(sub_num,sess)%,date)
+function [results, denoiseddata] = ek_glmDenoise(sub_num,date)
 
 
-%sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/',date,'/fmri');
-sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/concatVistaAligned/',sess);
+sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/',date,'/fmri');
+%sessDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/concatVistaAligned/',sess);
 cd(sessDir)
  
 % Open hidden inplane in order to define global variables
