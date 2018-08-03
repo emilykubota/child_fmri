@@ -1,7 +1,7 @@
 %  sublist = {'NLR_GB267','NLR_GB310','NLR_GB355','NLR_GB387',...
 %      'NLR_HB275','NLR_KB218','NLR_IB357','NLR_JB423','NLR_197_BK','NLR_JB420'};
 
-sublist = {'NLR_KB396','NLR_JB486'};
+sublist = {'NLR_JB227'};
 
 for ii = 1:length(sublist)
     sub_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sublist{ii});

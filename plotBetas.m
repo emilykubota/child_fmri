@@ -1,9 +1,9 @@
 function [sess1 sess2 sess3 sess4] = plotBetas(roiName,grouped,simplify)
 
-subs = {'NLR_HB275', 'NLR_KB218','NLR_GB310','NLR_JB420','NLR_GB355',...
+subs = {'NLR_HB275', 'NLR_KB218','NLR_GB310','NLR_JB420',...
     'NLR_JB423','NLR_GB267','NLR_IB357','NLR_197_BK','NLR_GB387'};
 
-% subs = {'NLR_KB218','NLR_GB310','NLR_GB355','NLR_JB423','NLR_IB357'};
+% subs = {'NLR_KB218','NLR_GB310','NLR_GB355','NLR_JB423','NLR_IB357','NLR_HB275'};
 
 % indicates whether we have denoised data for each session 1-4. Each row
 % corresponds to index of subject number above. These must match.
@@ -12,12 +12,12 @@ subs = {'NLR_HB275', 'NLR_KB218','NLR_GB310','NLR_JB420','NLR_GB355',...
 %     1 1 1 1;...
 %     0 1 1 1;...
 %     0 1 0 1;...
-%     0 1 0 1];
+%     0 1 0 1;...
+%     1 1 1 1];
 sess = [1 1 1 1;...
     1 1 1 1;...
     1 1 1 1;
     1 1 0 1;...
-    0 1 1 1;...
     0 1 0 1;...
     0 1 1 1;...
     0 1 0 1;...
@@ -162,7 +162,7 @@ sess = [1 1 1 1;...
              end 
          end 
          
-    elseif sum(sess(ii,:)) == 2
+    elseif sum(sess(ii,:)) == 1
         scan = [1 2];
         vw = initHiddenInplane(dt,scan,roiName);
         if vw.selectedROI == 1
@@ -232,24 +232,28 @@ sess = [1 1 1 1;...
      
      for a = 1:size1
          temp1(a,1) = mean(sess1(a,1:4));
+%          temp1(a,2) = mean(sess1(a,3:4));
          temp1(a,2) = mean(sess1(a,5:6));
          temp1(a,3) = mean(sess1(a,7:8));
      end
      
      for b = 1:size2
          temp2(b,1) = mean(sess2(b,1:4));
+%          temp2(b,2) = mean(sess2(b,3:4));
          temp2(b,2) = mean(sess2(b,5:6));
          temp2(b,3) = mean(sess2(b,7:8));
      end
      
      for c = 1:size3
          temp3(c,1) = mean(sess3(c,1:4));
+%          temp3(c,2) = mean(sess3(c,3:4));
          temp3(c,2) = mean(sess3(c,5:6));
          temp3(c,3) = mean(sess3(c,7:8));
      end
      
      for d = 1:size4
          temp4(d,1) = mean(sess4(d,1:4));
+%          temp4(d,2) = mean(sess4(d,3:4));
          temp4(d,2) = mean(sess4(d,5:6));
          temp4(d,3) = mean(sess4(d,7:8));
      end
@@ -279,15 +283,15 @@ sess = [1 1 1 1;...
 if simplify == 0 
     ticklocations = [];
      for j = 1:4
-         k = 1:3;
+         k = 1:4;
          x = -0.5 + j + 1/4 * k;
          ticklocations = [ticklocations x];
          bar(x,f(j,k),'FaceColor',colors{j}); 
          errorbar(x,f(j,k),err(j,k),'.','Color','k')
      end
      
-     set(gca,'xtick',ticklocations,'xticklabels',{'W','F','O','W','F','O',...
-     'W','F','O','W','F','O'});
+     set(gca,'xtick',ticklocations,'xticklabels',{'FW','NW','F','O','FW','NW','F','O',...
+     'FW','NW','F','O','FW','NW','F','O'});
      ylabel('Betas')
      xlabel('Session')
      title(roiName)
@@ -308,7 +312,7 @@ elseif simplify == 1
      set(gca,'xtick',ticklocations,'xticklabels',{'W','F','O','W','F','O'});
      ylabel('Betas')
      xlabel('Session')
-     title(roiName)
+     title('LH Concatenated VWFA')
 end 
  end 
  

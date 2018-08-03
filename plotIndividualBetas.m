@@ -33,7 +33,7 @@ sess = [1 1 1 1;...
  end 
  
 
-concatDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',subs{ni},'/denoisedConcatVista/GLMdenoise');
+concatDir = strcat('/mnt/diskArray/projects/LMB_Analysis/',subs{ni},'/concatVistaAligned/concatVista');
 cd(concatDir)
 if sum(sess(ni,:)) == 4 % Add up sess row to see how many sessions we have 
     scan = [1 2 3 4 5 6 7 8]; %if there are 4, we have 8 scans to work with

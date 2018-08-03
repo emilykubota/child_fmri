@@ -43,10 +43,12 @@ end
 cd(script_dir)
 child_initialize_vista(sub_num,data_dir)
 
+ek_glmDenoise(sub_num, date)
+
 %% Step 4: Align functionals and volume using rxAlign and knk tools (using steps from Winawer lab wiki)
 %child_fmri_align(data_dir)
 %% At this point, run child_fmri_align 
-%% Step 6: Fit the GLM
-cd(script_dir)
-child_fmri_glm(data_dir) %Fits GLM to grouped runs and computes contrast maps(VWFA, FFA)
-clx
+% %% Step 6: Fit the GLM
+% cd(script_dir)
+% child_fmri_glm(data_dir) %Fits GLM to grouped runs and computes contrast maps(VWFA, FFA)
+% clx

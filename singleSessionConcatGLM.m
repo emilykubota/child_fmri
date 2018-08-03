@@ -1,13 +1,13 @@
 function singleSessionConcatGLM(sub_num)
 
-data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/concatVistaAligned/concatVista');
+data_dir = strcat('/mnt/diskArray/projects/LMB_Analysis/',sub_num,'/concatVistaAligned/concatVista/');
 % Open session
 cd(data_dir)
 vw = initHiddenInplane();
 
 vw = viewSet(vw, 'current dt', 'Original');
 
-scanIndex = [1 3 5 7];
+scanIndex = [1 3];
 %% Prepare scans for GLM
 for ii = scanIndex(1:2)
      %numScans = viewGet(vw, 'numScans');
